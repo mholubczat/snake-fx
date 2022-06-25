@@ -1,6 +1,8 @@
 package org.example;
 
 import java.io.IOException;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 
 public class MenuController {
@@ -16,7 +18,7 @@ public class MenuController {
     }
 
     @FXML
-    private void exit() throws IOException {
-
+    private void exit() throws Exception {
+        Platform.exit();
     }
 }
