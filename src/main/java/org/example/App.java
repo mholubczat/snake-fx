@@ -19,7 +19,9 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("main-menu"), 640, 480);
         stage.setScene(scene);
+        scene.onKeyPressedProperty();
         stage.show();
+
     }
 
     public static void setRoot(String fxml) throws IOException {
