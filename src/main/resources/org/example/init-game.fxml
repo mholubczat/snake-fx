@@ -11,14 +11,12 @@
     <children>
         <Label text="Enter Game Window Size" />
         <HBox alignment="CENTER">
-            <Label text="Horizontal: " />
-            <TextField id="Horizontal"/>
-        </HBox>
-        <HBox alignment="CENTER">
-            <Label text="Vertical: " />
-            <TextField id="Vertical"/>
+            <TextField fx:id="horizontal" prefWidth="100"/>
+            <Label text=" x " />
+            <TextField fx:id="vertical" prefWidth="100"/>
         </HBox>
         <Button fx:id="startGame" text="Start Game" onAction="#startGame" />
+        <Label fx:id="numberFormatErrMsg" alignment="CENTER" text="${'Please enter dimensions:\n240÷1920  x  240÷1200'}" visible="false" />
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

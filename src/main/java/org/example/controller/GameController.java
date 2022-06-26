@@ -1,18 +1,11 @@
 package org.example.controller;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import org.example.App;
+
 
 import java.io.IOException;
 
@@ -25,6 +18,8 @@ public class GameController {
     TextField horizontal;
     @FXML
     TextField vertical;
+    @FXML
+    Label numberFormatErrMsg;
 
     @FXML
     private void exit() throws IOException {
@@ -35,7 +30,18 @@ public class GameController {
     @FXML
     private void startGame() throws IOException {
         Stage game = new Stage();
-        game.setScene(new Scene(loadFXML("game"), 320, 240));
-        game.show();
+        int width = 0;
+        int height = 0;
+        try {
+            width = Integer.parseInt(horizontal.getText());
+            height = Integer.parseInt(vertical.getText());
+            if(width < 240 || height < 240 || width > 1920 || height > 1200) throw new NumberFormatException();
+            game.setScene(new Scene(loadFXML("game"), width, height));
+            game.show();
+            Stage currentWindow = (Stage) horizontal.getScene().getWindow();
+            currentWindow.close();
+        }  catch (NumberFormatException e) {
+            numberFormatErrMsg.setVisible(true);
+        }
     }
 }
