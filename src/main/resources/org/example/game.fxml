@@ -5,14 +5,13 @@
 <?import javafx.geometry.Insets?>
 
 <?import javafx.scene.shape.Circle?>
-
-<?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.GameController">
+<?import javafx.scene.layout.StackPane?>
+<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.GameController">
     <children>
-        <Label fx:id="text" text="Press any key to start" />
-        <Circle fx:id="head" radius="5" fill="cadetblue"/>
+        <Label fx:id="initMsg" text="Press ENTER key to start"/>
+        <Circle fx:id="head" radius="5" fill="cadetblue" visible="false"/>
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-</VBox>
+</StackPane>

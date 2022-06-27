@@ -12,51 +12,39 @@ import java.io.IOException;
 import static org.example.App.loadFXML;
 
 public class GameController {
+    
     @FXML
-    TextField horizontal;
+    TextField hSize;
     @FXML
-    TextField vertical;
+    TextField vSize;
     @FXML
-    Label numberFormatErrMsg;
-
+    Label wrongSizeErrMsg;
+    @FXML
+    Label initMsg;
     @FXML
     Circle head;
+    @FXML
+    public void initialize(){
 
+    }
     @FXML
     private void startGame() throws IOException {
         Stage game = new Stage();
-        int width = 0;
-        int height = 0;
         try {
             // if parse int unsuccessful exception is raised
-            width = Integer.parseInt(horizontal.getText());
-            height = Integer.parseInt(vertical.getText());
+            int width = Integer.parseInt(hSize.getText());
+            int height = Integer.parseInt(vSize.getText());
             if (width < 240 || height < 240 || width > 1920 || height > 1200) throw new RuntimeException();
             // no exception -> open game window
-            game.setScene(gameScene(width,height));
+            game.setScene(gameScene(width, height));
             game.show();
             // close init window
-            Stage initWindow = (Stage) horizontal.getScene().getWindow();
+            Stage initWindow = (Stage) hSize.getScene().getWindow();
             initWindow.close();
         } catch (RuntimeException e) {
-            numberFormatErrMsg.setVisible(true);
+            wrongSizeErrMsg.setVisible(true);
         }
     }
-
-    private void up(){
-        System.out.println("UP we go");
-    }
-    private void down(){
-        System.out.println("down we go");
-    }
-
-    private void left(){
-        System.out.println("left we go");
-    }
-    private void right(){
-        System.out.println("right we go");
-    }
-
 
     private Scene gameScene(int width, int height) throws IOException {
         Scene gameScene = new Scene(loadFXML("game"), width, height);
@@ -67,11 +55,39 @@ public class GameController {
                         case DOWN, S -> down();
                         case LEFT, A -> left();
                         case RIGHT, D -> right();
+                        case ENTER -> start();
                     }
                 }
         );
-
         return gameScene;
+    }
+    private void up() {
+        if (head.isVisible()) {
+            System.out.println("UP we go");
+        }
+    }
+    private void down() {
+        if (head.isVisible()) {
+            System.out.println("UP we go");
+        }
+    }
+
+    private void left() {
+        if (head.isVisible()) {
+            System.out.println("UP we go");
+        }
+    }
+
+    private void right() {
+        if (head.isVisible()) {
+            System.out.println("UP we go");
+        }
+    }
+
+    private void start() {
+        head.setVisible(true);
+        initMsg.setVisible(false);
+        head.setVisible(true);
     }
 
 }
