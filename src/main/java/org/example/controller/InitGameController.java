@@ -1,16 +1,14 @@
 package org.example.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.example.App;
 
 import java.io.IOException;
-
-import static org.example.App.loadFXML;
-import static org.example.controller.GameController.*;
-
 
 public class InitGameController {
 
@@ -35,25 +33,29 @@ public class InitGameController {
             initWindow.close();
         } catch (RuntimeException | IOException e) {
             wrongSizeErrMsg.setVisible(true);
+            e.printStackTrace();
         }
     }
 
     private void initializeGameWindow(int width, int height) throws IOException {
         Stage gameStage = new Stage();
-        Scene gameScene = new Scene(loadFXML("game"), width, height);
-       /* gameScene.setOnKeyPressed(
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("game.fxml"));
+        Scene gameScene = new Scene(fxmlLoader.load(), width, height);
+        GameController controller = fxmlLoader.getController();
+        gameScene.setOnKeyPressed(
                 e -> {
                     switch (e.getCode()) {
-                        case UP, W -> up();
-                        case DOWN, S -> down();
-                        case LEFT, A -> left();
-                        case RIGHT, D -> right();
-                        case ENTER -> start();
+                        case UP, W -> controller.up();
+                        case DOWN, S -> controller.down();
+                        case LEFT, A -> controller.left();
+                        case RIGHT, D -> controller.right();
+                        case ENTER -> controller.start();
                     }
                 }
-        );*/
+        );
         gameStage.setScene(gameScene);
         gameStage.show();
     }
 }
+
 

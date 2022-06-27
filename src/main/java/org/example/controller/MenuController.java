@@ -25,7 +25,7 @@ public class MenuController {
     }
 
     @FXML
-    private void exit(){
+    private void exit() {
         Platform.exit();
     }
 }

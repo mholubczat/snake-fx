@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import javafx.animation.KeyValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -19,6 +20,7 @@ public class GameController {
             System.out.println("UP");
         }
     }
+
     void down() {
         if (head.isVisible()) {
             System.out.println("DOWN");
@@ -39,10 +41,8 @@ public class GameController {
 
     void start() {
         System.out.println("START");
-        head.setVisible(true);
         initMsg.setVisible(false);
         head.setVisible(true);
     }
-
 }
 
