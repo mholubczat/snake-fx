@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.App;
+import org.example.model.Direction;
 
 import java.io.IOException;
 
@@ -44,13 +45,27 @@ public class InitGameController {
         GameController controller = fxmlLoader.getController();
         gameScene.setOnKeyPressed(
                 e -> {
-                    switch (e.getCode()) {
-                        case UP, W -> controller.up();
-                        case DOWN, S -> controller.down();
-                        case LEFT, A -> controller.left();
-                        case RIGHT, D -> controller.right();
-                        case ENTER -> controller.start();
-                    }
+                        switch (e.getCode()) {
+                            case UP, W -> {
+                                if (!controller.currentDirection.equals(Direction.DOWN))
+                                    controller.nextDirection = Direction.UP;
+                            }
+                            case DOWN, S -> {
+                                if (!controller.currentDirection.equals(Direction.UP))
+                                    controller.nextDirection = Direction.DOWN;
+                            }
+                            case LEFT, A -> {
+                                if (!controller.currentDirection.equals(Direction.RIGHT))
+                                    controller.nextDirection = Direction.LEFT;
+                            }
+                            case RIGHT, D -> {
+                                if (!controller.currentDirection.equals(Direction.LEFT))
+                                    controller.nextDirection = Direction.RIGHT;
+                            }
+                            case ENTER -> {
+                                if (controller.initMsg.isVisible()) controller.start();
+                            }
+                        }
                 }
         );
         gameStage.setScene(gameScene);
