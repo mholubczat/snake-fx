@@ -19,6 +19,8 @@ public class InitGameController {
     private TextField vSize;
     @FXML
     private Label wrongSizeErrMsg;
+    static int width;
+    static int heigth;
 
     @FXML
     private void initGame() {
@@ -29,6 +31,8 @@ public class InitGameController {
             if (width < 240 || height < 240 || width > 1920 || height > 1200) throw new RuntimeException();
             // no exception -> open game window
             initializeGameWindow(width, height);
+            InitGameController.width = width;
+            InitGameController.heigth = height;
             // no exception -> close this window
             Stage initWindow = (Stage) hSize.getScene().getWindow();
             initWindow.close();
