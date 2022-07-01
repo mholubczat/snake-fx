@@ -7,18 +7,20 @@
 
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.InitGameController">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controller.InitGameController">
     <children>
-        <Label text="Enter Game Window Size" />
+        <Label text="Enter Game Window Size"/>
         <HBox alignment="CENTER">
             <TextField fx:id="hSize" alignment="CENTER" prefWidth="100"/>
-            <Label text=" x " />
+            <Label text=" x "/>
             <TextField fx:id="vSize" alignment="CENTER" prefWidth="100"/>
         </HBox>
-        <Button fx:id="initGame" text="Start Game" onKeyPressed="#initGame" onAction="#initGame" />
-        <Label fx:id="wrongSizeErrMsg" alignment="CENTER" text="${'Please enter dimensions:\n240÷1920  x  240÷1200'}" visible="false" />
+        <Button fx:id="initGame" text="Start Game" onKeyPressed="#initGame" onAction="#initGame"/>
+        <Label fx:id="wrongSizeErrMsg" alignment="CENTER" text="${'Please enter dimensions:\n240÷1920  x  240÷1200'}"
+               visible="false"/>
     </children>
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 </VBox>

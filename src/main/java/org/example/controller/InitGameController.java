@@ -20,7 +20,7 @@ public class InitGameController {
     @FXML
     private Label wrongSizeErrMsg;
     static int width;
-    static int heigth;
+    static int height;
 
     @FXML
     private void initGame() {
@@ -32,7 +32,7 @@ public class InitGameController {
             // no exception -> open game window
             initializeGameWindow(width, height);
             InitGameController.width = width;
-            InitGameController.heigth = height;
+            InitGameController.height = height;
             // no exception -> close this window
             Stage initWindow = (Stage) hSize.getScene().getWindow();
             initWindow.close();
@@ -49,27 +49,27 @@ public class InitGameController {
         GameController controller = fxmlLoader.getController();
         gameScene.setOnKeyPressed(
                 e -> {
-                        switch (e.getCode()) {
-                            case UP, W -> {
-                                if (!controller.currentDirection.equals(Direction.DOWN))
-                                    controller.nextDirection = Direction.UP;
-                            }
-                            case DOWN, S -> {
-                                if (!controller.currentDirection.equals(Direction.UP))
-                                    controller.nextDirection = Direction.DOWN;
-                            }
-                            case LEFT, A -> {
-                                if (!controller.currentDirection.equals(Direction.RIGHT))
-                                    controller.nextDirection = Direction.LEFT;
-                            }
-                            case RIGHT, D -> {
-                                if (!controller.currentDirection.equals(Direction.LEFT))
-                                    controller.nextDirection = Direction.RIGHT;
-                            }
-                            case ENTER -> {
-                                if (controller.initMsg.isVisible()) controller.start();
-                            }
+                    switch (e.getCode()) {
+                        case UP, W -> {
+                            if (!controller.currentDirection.equals(Direction.DOWN))
+                                controller.nextDirection = Direction.UP;
                         }
+                        case DOWN, S -> {
+                            if (!controller.currentDirection.equals(Direction.UP))
+                                controller.nextDirection = Direction.DOWN;
+                        }
+                        case LEFT, A -> {
+                            if (!controller.currentDirection.equals(Direction.RIGHT))
+                                controller.nextDirection = Direction.LEFT;
+                        }
+                        case RIGHT, D -> {
+                            if (!controller.currentDirection.equals(Direction.LEFT))
+                                controller.nextDirection = Direction.RIGHT;
+                        }
+                        case ENTER -> {
+                            if (controller.initMsg.isVisible()) controller.start();
+                        }
+                    }
                 }
         );
         gameStage.setScene(gameScene);
