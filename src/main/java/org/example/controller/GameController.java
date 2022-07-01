@@ -3,16 +3,21 @@ package org.example.controller;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.model.Direction;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.*;
 
+import static org.example.App.loadFXML;
 import static org.example.controller.InitGameController.height;
 import static org.example.controller.InitGameController.width;
 
@@ -37,14 +42,13 @@ public class GameController {
     @FXML
     private StackPane pane;
     @FXML
-    Label initMsg;
-    private double score = 0;
+    VBox initMsg;
+    static double food = 0;
+    static double time = 0;
     private final Duration SPEED = Duration.millis(100);
     private final int STEP = 20;
 
-
-
-    void start() {
+    void start() throws IOException {
         initMsg.setVisible(false);
         head.setVisible(true);
         SNAKE.add(head);
@@ -83,7 +87,11 @@ public class GameController {
                     // consume food
                     consumeFood();
                     // next move
-                    move();
+                    try {
+                        move();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 },
                 new KeyValue(circle.translateXProperty(), circle.getTranslateX() + STEP * direction.getX()),
                 new KeyValue(circle.translateYProperty(), circle.getTranslateY() + STEP * direction.getY()));
@@ -92,18 +100,21 @@ public class GameController {
     private void die() {
         // hit own body
         SNAKE.forEach(s -> {
-            if (!s.equals(head) && s.getBoundsInParent().contains(head.getBoundsInParent())
-                    // hit a wall
-                    || Math.abs(head.getTranslateY()) * 2 >= height - 2 * head.getRadius() || Math.abs(head.getTranslateX()) * 2 >= width - 2 * head.getRadius()
-            ) {
-                head.setFill(Color.RED);
+            if (!s.equals(head) && s.getBoundsInParent().contains(head.getBoundsInParent())){
                 s.setFill(Color.RED);
                 dead = true;
             }
         });
+        // hit a wall
+        if(Math.abs(head.getTranslateY()) * 2 >= height - 2 * head.getRadius()
+            || Math.abs(head.getTranslateX()) * 2 >= width - 2 * head.getRadius())
+            {
+                head.setFill(Color.RED);
+                dead = true;
+            }
     }
 
-    private void move() {
+    private void move() throws IOException {
         if (Math.random() > 0.95)
             addFood();
         currentDirection = nextDirection;
@@ -111,19 +122,20 @@ public class GameController {
         DIRECTIONS.removeLast();
         Timeline timeline = new Timeline(getHeadKeyFrame(head, currentDirection));
         if (dead) {
-            timeline.stop();
-            timer.cancel();
-            countScore();
+            gameOver(timeline);
             return;
         }
         drawBodySegments(timeline);
         timeline.play();
     }
 
-    private void countScore() {
-        score += (Double.parseDouble(timerLabel.getText()) * 17 * 240 * 240 / width / height);
-        System.out.println(score);
-        score = (int)score;
+    private void gameOver(Timeline timeline) throws IOException {
+        timeline.stop();
+        timer.cancel();
+        time = Double.parseDouble(timerLabel.getText());
+        Stage gameOver = new Stage();
+        gameOver.setScene(new Scene(loadFXML("game-over"), 480, 320));
+        gameOver.show();
     }
 
     private void drawBodySegments(Timeline timeline) {
@@ -136,7 +148,7 @@ public class GameController {
         FOODS.stream().filter(
                 f -> f.getBoundsInParent().intersects(head.getBoundsInParent())
         ).forEach(f -> {
-            score += 10;
+            food++;
             pane.getChildren().remove(f);
             EATEN.add(f);
             if (f.getFill().equals(Color.GREEN)) {

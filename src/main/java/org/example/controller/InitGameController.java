@@ -67,7 +67,13 @@ public class InitGameController {
                                 controller.nextDirection = Direction.RIGHT;
                         }
                         case ENTER -> {
-                            if (controller.initMsg.isVisible()) controller.start();
+                            if (controller.initMsg.isVisible()) {
+                                try {
+                                    controller.start();
+                                } catch (IOException ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                            }
                         }
                     }
                 }
