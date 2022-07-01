@@ -19,8 +19,8 @@ public class InitGameController {
     private TextField vSize;
     @FXML
     private Label wrongSizeErrMsg;
-    static int width;
-    static int height;
+    static double width;
+    static double height;
 
     @FXML
     private void initGame() {
@@ -72,6 +72,7 @@ public class InitGameController {
                     }
                 }
         );
+        gameStage.setOnCloseRequest(e -> controller.dead=true);
         gameStage.setScene(gameScene);
         gameStage.show();
     }

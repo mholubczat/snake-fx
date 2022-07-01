@@ -8,5 +8,6 @@
     <children>
         <Label fx:id="initMsg" text="Press ENTER key to start"/>
         <Circle fx:id="head" radius="10" fill="black" visible="false"/>
+        <Label fx:id="timerLabel" text ="0" visible="false"/>
     </children>
 </StackPane>
