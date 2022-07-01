@@ -10,7 +10,7 @@
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.controller.InitGameController">
     <children>
-        <Label text="Enter Game Window Size"/>
+        <Label text="${'Enter Game Window Size\n\nMore than 240 is for Lamus'}"/>
         <HBox alignment="CENTER">
             <TextField fx:id="hSize" alignment="CENTER" prefWidth="100"/>
             <Label text=" x "/>
