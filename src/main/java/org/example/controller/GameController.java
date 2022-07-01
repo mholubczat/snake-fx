@@ -25,6 +25,7 @@ public class GameController {
     private final LinkedList<Circle> SNAKE = new LinkedList<>();
     private final Set<Circle> EATEN = new HashSet<>();
     private final LinkedList<Direction> DIRECTIONS = new LinkedList<>();
+    private boolean dead = false;
     @FXML
     public Label initMsg;
     @FXML
@@ -46,12 +47,26 @@ public class GameController {
     private KeyFrame getHeadKeyFrame(Circle circle, Direction direction) {
         return new KeyFrame(SPEED,
                 e -> {
+                    die();
                     // consume food
                     consumeFood();
                     // next move
                     move();
                 },
                 new KeyValue(circle.translateXProperty(), circle.getTranslateX() + STEP * direction.getX()), new KeyValue(circle.translateYProperty(), circle.getTranslateY() + STEP * direction.getY()));
+    }
+
+    private void die() {
+        // hit own body
+        SNAKE.forEach(s -> {
+            if (!s.equals(head) && s.getBoundsInParent().contains(head.getBoundsInParent())
+                    || Math.abs(head.getTranslateY()) * 2 >= height - 2 * head.getRadius() || Math.abs(head.getTranslateX()) * 2 >= width - 2 * head.getRadius()
+            ) {
+                s.setFill(Color.RED);
+                head.setFill(Color.RED);
+                dead = true;
+            }
+        });
     }
 
     private void move() {
@@ -61,6 +76,10 @@ public class GameController {
         DIRECTIONS.addFirst(currentDirection);
         DIRECTIONS.removeLast();
         Timeline timeline = new Timeline(getHeadKeyFrame(head, currentDirection));
+        if (dead) {
+            timeline.stop();
+            return;
+        }
         drawBodySegments(timeline);
         timeline.play();
     }
