@@ -5,6 +5,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -60,6 +63,7 @@ public class GameController {
         startTime = LocalTime.now();
         move();
         timer.scheduleAtFixedRate(getTimerTask(), 0L, 1000L);
+        pane.getScene().getAccelerators().put(new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN),()->((Stage) pane.getScene().getWindow()).close());
     }
 
     private TimerTask getTimerTask() {
