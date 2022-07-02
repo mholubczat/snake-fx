@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.bootstrap.Bootstrap;
 
 import java.io.IOException;
 
@@ -16,7 +17,8 @@ public class App extends Application {
     private static Scene scene;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, ClassNotFoundException {
+        new Bootstrap().initialize();
         scene = new Scene(loadFXML("main-menu"), 640, 480);
         stage.setScene(scene);
         stage.show();

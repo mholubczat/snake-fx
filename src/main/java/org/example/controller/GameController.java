@@ -48,7 +48,8 @@ public class GameController {
     private final Duration SPEED = Duration.millis(100);
     private final int STEP = 20;
 
-    void start() throws IOException {
+    void start() throws IOException, InterruptedException {
+        food = 0;
         initMsg.setVisible(false);
         head.setVisible(true);
         SNAKE.add(head);
@@ -65,11 +66,9 @@ public class GameController {
         return new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(() -> {
-                    timerLabel.setText(String.valueOf(
-                            LocalTime.now().toSecondOfDay() -
-                                    startTime.toSecondOfDay()));
-                });
+                Platform.runLater(() -> timerLabel.setText(String.valueOf(
+                        LocalTime.now().toSecondOfDay() -
+                                startTime.toSecondOfDay())));
             }
         };
     }
@@ -77,7 +76,7 @@ public class GameController {
 
     private KeyFrame getKeyFrame(Circle circle, Direction direction) {
         return new KeyFrame(SPEED, new KeyValue(circle.translateXProperty(), circle.getTranslateX() + STEP * direction.getX()),
-                                    new KeyValue(circle.translateYProperty(), circle.getTranslateY() + STEP * direction.getY()));
+                new KeyValue(circle.translateYProperty(), circle.getTranslateY() + STEP * direction.getY()));
     }
 
     private KeyFrame getHeadKeyFrame(Circle circle, Direction direction) {
@@ -89,7 +88,7 @@ public class GameController {
                     // next move
                     try {
                         move();
-                    } catch (IOException ex) {
+                    } catch (IOException | InterruptedException ex) {
                         throw new RuntimeException(ex);
                     }
                 },
@@ -100,21 +99,20 @@ public class GameController {
     private void die() {
         // hit own body
         SNAKE.forEach(s -> {
-            if (!s.equals(head) && s.getBoundsInParent().contains(head.getBoundsInParent())){
+            if (!s.equals(head) && s.getBoundsInParent().contains(head.getBoundsInParent())) {
                 s.setFill(Color.RED);
                 dead = true;
             }
         });
         // hit a wall
-        if(Math.abs(head.getTranslateY()) * 2 >= height - 2 * head.getRadius()
-            || Math.abs(head.getTranslateX()) * 2 >= width - 2 * head.getRadius())
-            {
-                head.setFill(Color.RED);
-                dead = true;
-            }
+        if (Math.abs(head.getTranslateY()) * 2 >= height - 2 * head.getRadius()
+                || Math.abs(head.getTranslateX()) * 2 >= width - 2 * head.getRadius()) {
+            head.setFill(Color.RED);
+            dead = true;
+        }
     }
 
-    private void move() throws IOException {
+    private void move() throws IOException, InterruptedException {
         if (Math.random() > 0.95)
             addFood();
         currentDirection = nextDirection;
@@ -136,6 +134,7 @@ public class GameController {
         Stage gameOver = new Stage();
         gameOver.setScene(new Scene(loadFXML("game-over"), 480, 320));
         gameOver.show();
+        gameOver.setOnHidden(windowEvent -> ((Stage) pane.getScene().getWindow()).close());
     }
 
     private void drawBodySegments(Timeline timeline) {

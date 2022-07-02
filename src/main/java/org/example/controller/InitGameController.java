@@ -70,7 +70,7 @@ public class InitGameController {
                             if (controller.initMsg.isVisible()) {
                                 try {
                                     controller.start();
-                                } catch (IOException ex) {
+                                } catch (IOException | InterruptedException ex) {
                                     throw new RuntimeException(ex);
                                 }
                             }

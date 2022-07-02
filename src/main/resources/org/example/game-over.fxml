@@ -10,25 +10,24 @@
 <?import javafx.scene.layout.GridPane?>
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.controller.GameOverController">
-    <children>
-        <Label text="GAME OVER"/>
-        <Label text="Enter your name!"/>
-        <HBox alignment="CENTER">
-            <TextField fx:id="player" prefWidth="150"/>
-        </HBox>
-        <GridPane hgap="20" vgap="10">
-            <Label text="Collected food (x10): " GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <Label fx:id="foodScore" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-            <Label text="Time bonus (x10): "  GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <Label fx:id="timeScore" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <Label text="Window size multiplier: " GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-            <Label fx:id="windowScore" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-            <Label text="TOTAL:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-            <Label fx:id="total" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-        </GridPane>
-        <Button text="OK" onAction="#saveScore"/>
-    </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
+    <Label text="GAME OVER"/>
+    <Label text="Enter your name!"/>
+    <HBox alignment="CENTER">
+        <TextField fx:id="player" prefWidth="150"/>
+    </HBox>
+    <GridPane hgap="20" vgap="10">
+        <Label text="Collected food (x10): " GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label fx:id="foodScore" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label text="Time bonus (x10): " GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Label fx:id="timeScore" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Window size multiplier: " GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Label fx:id="windowScore" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="TOTAL:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Label fx:id="total" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    </GridPane>
+    <Button text="OK" onAction="#saveScore"/>
+    <Label fx:id="noNameErr" text="Please enter name!" visible="false" textFill="red"/>
 </VBox>
