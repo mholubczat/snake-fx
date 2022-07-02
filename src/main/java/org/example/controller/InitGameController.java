@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.model.Direction;
-import org.example.model.WindowSizeException;
+import org.example.exception.WindowSizeException;
 
 import java.io.IOException;
 

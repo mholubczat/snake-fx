@@ -58,7 +58,7 @@ public class GameController {
         SNAKE.add(head);
         DIRECTIONS.add(currentDirection);
         addFood();
-        timerLabel.setTranslateY(-width / 2 + 10);
+        timerLabel.setTranslateY(-height / 2 + 10);
         timerLabel.setVisible(true);
         startTime = LocalTime.now();
         move();

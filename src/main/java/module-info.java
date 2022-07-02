@@ -6,4 +6,6 @@ module org.example {
     exports org.example.model;
     opens org.example.controller to javafx.fxml;
     opens org.example.model to javafx.fxml;
+    exports org.example.exception;
+    opens org.example.exception to javafx.fxml;
 }
