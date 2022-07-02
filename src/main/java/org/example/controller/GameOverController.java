@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.example.model.NoNameException;
 import org.example.model.Score;
 
 import java.io.*;
@@ -38,8 +39,10 @@ public class GameOverController implements Initializable {
 
     @FXML
     public void saveScore() throws IOException {
-        if (player.getText().isBlank()) this.noNameErr.setVisible(true);
-        else {
+        if (player.getText().isBlank()) {
+            this.noNameErr.setVisible(true);
+            throw new NoNameException("No name entered!");
+        } else {
             List<Score> highScores = null;
             try {
                 highScores = new LinkedList<>();

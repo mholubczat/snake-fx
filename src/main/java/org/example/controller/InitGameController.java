@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.model.Direction;
+import org.example.model.WindowSizeException;
 
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class InitGameController {
             // if parse int unsuccessful exception is raised
             int width = Integer.parseInt(hSize.getText());
             int height = Integer.parseInt(vSize.getText());
-            if (width < 240 || height < 240 || width > 1920 || height > 1200) throw new RuntimeException();
+            if (width < 240 || height < 240 || width > 1920 || height > 1200) throw new WindowSizeException("Incorrect window size. Must be 240-1920 x 240-1200");
             // no exception -> open game window
             initializeGameWindow(width, height);
             InitGameController.width = width;
