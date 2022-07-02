@@ -29,7 +29,6 @@ public class ScoresController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         score.setCellValueFactory(new PropertyValueFactory<>("score"));
-
         try {
             Score readScore;
             FileInputStream fis
@@ -38,7 +37,9 @@ public class ScoresController implements Initializable {
             while ((readScore = (Score) ois.readObject()) != null) {
                 highScores.getItems().add(readScore);
             }
-        } catch (IOException | ClassNotFoundException ignored) {
+        } catch (IOException | ClassNotFoundException ex) {
+            //EOFException is expected and ignored here
+            if (!ex.getClass().equals(EOFException.class)) throw new RuntimeException();
         } finally {
             highScores.getItems().sort((o1, o2) -> o2.getScore() - o1.getScore());
         }

@@ -33,8 +33,6 @@ public class GameOverController implements Initializable {
     private Label foodScore;
     @FXML
     private Label windowScore;
-
-
     private final int SCORE = (int) (food * 10 + time * 10 * 240 * 240 / width / height);
 
     @FXML
@@ -43,9 +41,8 @@ public class GameOverController implements Initializable {
             this.noNameErr.setVisible(true);
             throw new NoNameException("No name entered!");
         } else {
-            List<Score> highScores = null;
+            List<Score> highScores = new LinkedList<>();
             try {
-                highScores = new LinkedList<>();
                 Score readScore;
                 FileInputStream fis
                         = new FileInputStream("highScores.txt");
@@ -54,8 +51,9 @@ public class GameOverController implements Initializable {
                     highScores.add(readScore);
                 }
                 ois.close();
-            } catch (IOException | ClassNotFoundException ignored) {
-
+            } catch (IOException | ClassNotFoundException ex) {
+                //EOFException is expected and ignored here
+                if (!ex.getClass().equals(EOFException.class)) throw new RuntimeException();
             }
             FileOutputStream fos
                     = new FileOutputStream("highScores.txt");
@@ -67,7 +65,6 @@ public class GameOverController implements Initializable {
             oos.close();
         }
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

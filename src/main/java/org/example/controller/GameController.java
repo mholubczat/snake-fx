@@ -92,7 +92,7 @@ public class GameController {
                     // next move
                     try {
                         move();
-                    } catch (IOException | InterruptedException ex) {
+                    } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                 },
@@ -116,7 +116,7 @@ public class GameController {
         }
     }
 
-    private void move() throws IOException, InterruptedException {
+    private void move() throws IOException {
         if (Math.random() > 0.95)
             addFood();
         currentDirection = nextDirection;
@@ -179,7 +179,7 @@ public class GameController {
         food.setTranslateX((int) ((Math.random() - 0.5) * (width - 10)));
         food.setTranslateY((int) ((Math.random() - 0.5) * (height - 10)));
         this.FOODS.add(food);
-        if (Math.random() > 0.8) {
+        if (Math.random() > 0.9) {
             food.setFill(Color.GOLD);
         } else food.setFill(Color.GREEN);
         pane.getChildren().add(food);

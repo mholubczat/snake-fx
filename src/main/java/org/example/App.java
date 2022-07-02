@@ -17,7 +17,7 @@ public class App extends Application {
     private static Scene scene;
 
     @Override
-    public void start(Stage stage) throws IOException, ClassNotFoundException {
+    public void start(Stage stage) throws IOException {
         new Bootstrap().initialize();
         scene = new Scene(loadFXML("main-menu"), 320, 240);
         stage.setScene(scene);

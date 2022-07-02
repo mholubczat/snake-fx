@@ -6,15 +6,13 @@
 <?import javafx.scene.layout.VBox?>
 <StackPane fx:id="pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="org.example.controller.GameController">
-    <children>
-        <VBox fx:id="initMsg" alignment="CENTER" spacing="20.0">
-            <Label text="GREEN pill makes you larger" textFill="green" alignment="TOP_CENTER"/>
-            <Label text="YELLOW makes you small!" textFill="goldenrod"/>
-            <Label text="WSAD or Arrows to move"/>
-            <Label text="Ctrl+W exits to main menu"/>
-            <Label text="Press ENTER key to start"/>
-        </VBox>
-        <Circle fx:id="head" radius="10" fill="black" visible="false"/>
-        <Label fx:id="timerLabel" text="0" visible="false"/>
-    </children>
+    <VBox fx:id="initMsg" alignment="CENTER" spacing="20.0">
+        <Label text="GREEN pill makes you larger" textFill="green" alignment="TOP_CENTER"/>
+        <Label text="YELLOW makes you small!" textFill="goldenrod"/>
+        <Label text="WSAD or Arrows to move"/>
+        <Label text="Ctrl+W exits to main menu"/>
+        <Label text="Press ENTER key to start"/>
+    </VBox>
+    <Circle fx:id="head" radius="10" fill="black" visible="false"/>
+    <Label fx:id="timerLabel" text="0" visible="false"/>
 </StackPane>
