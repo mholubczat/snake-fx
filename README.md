@@ -1,7 +1,7 @@
 # snake-fx
 
 Classic snake in JavaFX.
-Prepared as a university assignment.
+Prepared as an university assignment.
 
 ## Table of contents
 * [General info](#general-info)
